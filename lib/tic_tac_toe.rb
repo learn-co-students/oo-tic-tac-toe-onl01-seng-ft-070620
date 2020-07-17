@@ -1,3 +1,4 @@
+require 'pry'
 
 class TicTacToe
 
@@ -18,9 +19,9 @@ class TicTacToe
 
     def display_board
         puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
-        puts "-----------|-----------|-----------"
+        puts "-----------"
         puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
-        puts "-----------|-----------|-----------"
+        puts "-----------"
         puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
     end 
 
@@ -49,7 +50,7 @@ class TicTacToe
     end 
 
     def turn 
-        puts "Enter a number (1 through 9):"
+        puts "Enter a number 1 through 9 (1 being top left, 9 being bottom right):"
         user_input = gets.strip
         index = input_to_index(user_input)
         if valid_move?(index)
@@ -62,11 +63,11 @@ class TicTacToe
     end 
 
     def won?
-        WIN_COMBINATIONS.any? do |combo|
+        WIN_COMBINATIONS.detect do |combo|
             if position_taken?(combo[0]) && 
                 @board[combo[0]] == @board[combo[1]] &&
                 @board[combo[1]] == @board[combo[2]]
-                return combo 
+                combo
             end 
         end
     end 
@@ -84,8 +85,8 @@ class TicTacToe
     end 
 
     def winner
-        if combo = won?
-            @board[combo[0]]
+        if won?
+            @board[won?[0]]
         end 
     end 
 
@@ -100,8 +101,5 @@ class TicTacToe
             puts "Cat's Game!"
         end 
     end 
-
-
-
 
 end
